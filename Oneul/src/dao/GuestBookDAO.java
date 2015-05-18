@@ -6,18 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import util.ConnectionUtil;
 import vo.GuestBookVO;
 
 public class GuestBookDAO {
 	
+	private static GuestBookDAO dao = null;
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	String url = "jdbc:mysql://localhost/Oneul";
 	
-	public GuestBookDAO() throws SQLException{
+	
+	private GuestBookDAO() throws SQLException{
 		//conn = ConnectionUtil.getConnection();
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -25,6 +25,20 @@ public class GuestBookDAO {
 		}catch(Exception ex){}
 		
 	}
+	
+	public static GuestBookDAO getInstance(){
+		if(dao == null){
+			try {
+				dao = new GuestBookDAO();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return dao;
+	}
+	
 	
 	public ArrayList<GuestBookVO> select(){
 		
@@ -107,7 +121,7 @@ public class GuestBookDAO {
 		try {
 			if(rs != null){	rs.close(); }
 			if(pstmt != null){ pstmt.close(); }
-			if(conn != null){ conn.close(); }
+			//if(conn != null){ conn.close(); }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

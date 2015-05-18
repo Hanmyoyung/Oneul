@@ -15,7 +15,7 @@
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 	
-		GuestBookDAO dao = new GuestBookDAO();
+		GuestBookDAO dao = GuestBookDAO.getInstance();
 		GuestBookVO vo = new GuestBookVO();
 		
 		vo.setGuestbookcontent(request.getParameter("content"));

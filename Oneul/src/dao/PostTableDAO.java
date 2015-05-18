@@ -13,20 +13,19 @@ import java.util.ArrayList;
 
 import vo.PostTableVO;
 
-
-
-
+	
 
 public class PostTableDAO {
 	
+	private static PostTableDAO dao = null;
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	Blob image = null;
-	byte[] imgData = null;
 	String url = "jdbc:mysql://localhost/Oneul";
 	
-	public PostTableDAO() throws SQLException{
+
+	
+	private PostTableDAO() throws SQLException{
 		//conn = ConnectionUtil.getConnection();
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -35,6 +34,20 @@ public class PostTableDAO {
 		
 	}
 	
+
+	public static PostTableDAO getInstance(){
+		if(dao == null){
+			try {
+				dao = new PostTableDAO();
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return dao;
+	}
+	
+
 	public ArrayList<PostTableVO> select(){
 		
 		ArrayList<PostTableVO> list = new ArrayList<PostTableVO>();		
@@ -59,8 +72,7 @@ public class PostTableDAO {
 					vo.setArea(rs.getString("area"));
 					vo.setWritetime(rs.getTimestamp("writetime"));
 					vo.setModifytime(rs.getTimestamp("modifytime"));
-					image = rs.getBlob("picture");
-					vo.setPicture(image);
+					vo. setImgData(rs.getBlob("image"));
 					
 					list.add(vo);
 				
@@ -73,21 +85,20 @@ public class PostTableDAO {
 		return list;
 	}
 	
-	private byte[] getBytes(int i, int length) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public int insert(PostTableVO vo){
 		StringBuffer sql = new StringBuffer();
 		int result = 0;
 		try{
-			sql.append("INSERT INTO post(post_no, user_no, picture, weather_no, content) ");
+			sql.append("INSERT INTO post(post_no, user_no, image, weather_no, content) ");
 			//sql.append("VALUES(GUESTBOOK_NO_SEQ.NEXTVAL,?,?,?) ");
 			sql.append("VALUES(?,?,?,?,?) ");
 			File image=new File("C:\\1.jpg");
 			FileInputStream fis;
 			fis=new FileInputStream(image);
+			
+			//임시로 이미지 보내기
+			vo.setImage(image);
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, vo.getPostno());
@@ -95,7 +106,8 @@ public class PostTableDAO {
 			//pstmt.setTimestamp(3, vo.getWritetime());
 			//pstmt.setTimestamp(4, vo.getModifytime());
 			//pstmt.setBinaryStream(3, vo.getPicture());
-			pstmt.setBinaryStream(3, (InputStream)fis, (int)(image.length()));
+			//pstmt.setBinaryStream(3, (InputStream)fis, (int)(image.length()));
+			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
 			//pstmt.setInt(6, vo.getLike());
 			pstmt.setInt(4, vo.getWeather());
 			pstmt.setString(5, vo.getContent());
@@ -107,9 +119,9 @@ public class PostTableDAO {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}catch(Exception ex){}
-		//finally{
-		//	dbclose();
-		//}
+		finally{
+			dbclose();
+		}
 		
 		return result;
 	}
@@ -142,7 +154,7 @@ public class PostTableDAO {
 		try {
 			if(rs != null){	rs.close(); }
 			if(pstmt != null){ pstmt.close(); }
-			if(conn != null){ conn.close(); }
+			//if(conn != null){ conn.close(); }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

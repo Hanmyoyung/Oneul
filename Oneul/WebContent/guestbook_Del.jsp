@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%
-		GuestBookDAO dao = new GuestBookDAO();
+		GuestBookDAO dao = GuestBookDAO.getInstance();
 		GuestBookVO vo = new GuestBookVO();
 		
 		vo.setGuestbookno(Integer.parseInt(request.getParameter("id")));

@@ -8,7 +8,7 @@
 <html>
 <head>
 <%
-	GuestBookDAO dao = new GuestBookDAO();
+	GuestBookDAO dao = GuestBookDAO.getInstance();
 	GuestBookVO vo = new GuestBookVO();
 %>
 <script language="javascript">

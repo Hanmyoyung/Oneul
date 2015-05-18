@@ -1,6 +1,8 @@
 package vo;
 
+import java.io.File;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 
@@ -13,6 +15,30 @@ public class PostTableVO {
 	private Blob picture;
 	byte[ ] imgData = null ;
 	
+	File image;
+
+	
+	
+	public byte[] getImgData() {
+		return imgData;
+	}
+
+	public void setImgData(Blob bImage) {
+		try {
+			 imgData = bImage.getBytes(1,(int)bImage.length());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+	public File getImage() {
+		return image;
+	}
+	public void setImage(File image) {
+		this.image = image;
+	}
+	
 	
 	public Blob getPicture() {
 		return picture;
@@ -23,12 +49,7 @@ public class PostTableVO {
 		
 	}			
 	
-	public byte[] getImgData() {
-		return imgData;
-	}
-	public void setImgData(byte[] imgData) {
-		this.imgData = imgData;
-	}
+
 	public int getPostno() {
 		return postno;
 	}
