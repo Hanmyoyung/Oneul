@@ -13,10 +13,14 @@
 <%
    PostTableDAO dao = PostTableDAO.getInstance();
    PostTableVO vo = new PostTableVO();
+   //여기서 이미지 처리 해도 무방
+   //화면상에서 걸리는 것들이 자바 스크립트!를 쓰자  이렇게 위에서 <!% 
+   // 이렇게 됩니다.
 %>
 <script language="javascript">
    function goDel(id){
       window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+     // alert
    }
 </script>
 
@@ -28,12 +32,12 @@
 
 
    
-  // SkWeather sk  = new SkWeather();
-  // sk.getWeatherData();
-  // sk.jsonParsing();
+   SkWeather sk  = new SkWeather();
+   sk.getWeatherData();
+   sk.jsonParsing();
    
 
-  // out.println("현재 날씨는요? "+sk.getCurruntWeather());
+  out.println("현재 날씨는요? "+sk.getCurruntWeather());
    
 
 %>
@@ -51,28 +55,20 @@
       for(int i=0; i<list.size(); i++){
          vo = list.get(i);
 %>
-         <table border="1" width="500">
-               <tr>
-                  <th width="100">이름</th>
-                  <td width="300"><%=vo.getUserno() %></td>
-                  <td width="100"><input type="button" onclick="goDel(<%=vo.getPostno()%>)" value="삭제"></td>
-               </tr>
-               <tr>
-                  <td colspan="4"><%= vo.getContent() %></td>
-               </tr>
-
-               <tr>
-                  <td colspan="4">
-                  <%
-                     out.clear();
-                     out=pageContext.pushBody();
-                     response.setContentType("image/jpeg");
-                     OutputStream o = response.getOutputStream();
-                     o.write(vo.getImgData());
-                     o.flush();
-                     o.close();
-                   %>                     
-               </tr>
+			<table border="1" width="500">
+					<tr>
+						<th width="100">이름</th>
+						<td width="300"><%=vo.getUserno() %></td>
+						<td width="100"><input type="button" onclick="goDel(<%=vo.getPostno()%>)" value="삭제"></td>
+					</tr>
+					<tr>
+						<td colspan="4"><%= vo.getContent() %></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							  <img id="photoImage" src="imgProcessing.jsp?parameter=<%= i%>" width="100"  />
+						</td>
+					</tr>
 
          </table>
 <%

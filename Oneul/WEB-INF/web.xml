@@ -4,11 +4,30 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>guestbook.jsp</welcome-file>
+    <welcome-file>guestbook_Ins.jsp</welcome-file>
+    <welcome-file>guestbook_Del.jsp</welcome-file>
+    <welcome-file>postTest.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<description>이미지 처리</description>
+  	<display-name>image process</display-name>
+  	<servlet-name>image process</servlet-name>
+  	<servlet-class>servlet.GetUserImage</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>image process</servlet-name>
+  	<url-pattern>/GetImage.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!--  -->
   
   <resource-ref>
   	<res-ref-name>jdbc/myoracle</res-ref-name>
