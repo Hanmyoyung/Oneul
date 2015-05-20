@@ -7,14 +7,14 @@ import java.sql.Timestamp;
 
 
 
-public class PostTableVO {
+public class PostTableVO { // 이걸 useBean으로 해놓으면 객체 생성할 필요 없이 쓸 수 있다. 모든 페이지에서 쓴다면 그냥 이렇게 만드는게 좋다. 유즈 빈으로 
+	//<jsp:useBean..... 이렇게>
 	
 	private int postno, userno, like, weather, coordino;
 	private String content, area;
 	private Timestamp writetime, modifytime;
 	private Blob picture;
-	byte[ ] imgData = null ;
-	
+	byte[ ] imgData = null ;	
 	File image;
 
 	

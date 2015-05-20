@@ -5,7 +5,7 @@
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.sql.Blob"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,10 +13,14 @@
 <%
    PostTableDAO dao = PostTableDAO.getInstance();
    PostTableVO vo = new PostTableVO();
+   //여기서 이미지 처리 해도 무방
+   //화면상에서 걸리는 것들이 자바 스크립트!를 쓰자  이렇게 위에서 <!% 
+   // 이렇게 됩니다.
 %>
 <script language="javascript">
    function goDel(id){
       window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+     // alert
    }
 </script>
 
@@ -42,7 +46,7 @@
 <b>방명록</b><hr>   
 
 	<!-- 글 목록 부분 시작 -->
-	<form method="post" name="listform">
+	<form method="post" action = "GetImage.do" name="listform">
 		<input type="hidden" name ="pro">
 <%
 	dao.insert(vo);
@@ -60,19 +64,10 @@
 					<tr>
 						<td colspan="4"><%= vo.getContent() %></td>
 					</tr>
-					<%--  					--%>
 					<tr>
 						<td colspan="4">
-						<%
-							out.clear();
-							out=pageContext.pushBody();
-							response.setContentType("image/jpg");
-							OutputStream o = response.getOutputStream();
-							o.write(vo.getImgData());
-							o.flush();
-							o.close();
-
-						 %>							
+							  <img id="photoImage" src="imgProcessing.jsp?parameter=<%= i%>" width="100"  />
+						</td>
 					</tr>
 
 			</table>

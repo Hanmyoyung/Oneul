@@ -3,7 +3,6 @@ package dao;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -54,7 +53,7 @@ public class PostTableDAO {
 		StringBuffer sql = new StringBuffer();
 		
 		try{
-			sql.append("SELECT * ");
+			sql.append("SELECT post_no,user_no, like_freq, weather_no, coordi_no, content, area, writetime, modifytime ");
 			sql.append("FROM post ORDER BY post_no DESC");
 		
 			
@@ -72,7 +71,6 @@ public class PostTableDAO {
 					vo.setArea(rs.getString("area"));
 					vo.setWritetime(rs.getTimestamp("writetime"));
 					vo.setModifytime(rs.getTimestamp("modifytime"));
-					vo. setImgData(rs.getBlob("image"));
 					
 					list.add(vo);
 				
@@ -83,6 +81,29 @@ public class PostTableDAO {
 			dbclose();
 		}
 		return list;
+	}
+	
+	public PostTableVO selectImage(int listnum){
+		
+		StringBuffer sql = new StringBuffer();
+		PostTableVO vo = new PostTableVO();
+		
+		try{
+			sql.append("SELECT image WHERE post_no=listnum");
+			sql.append("FROM post ORDER BY post_no DESC");
+		
+			
+			pstmt = conn.prepareStatement(sql.toString());			
+			rs = pstmt.executeQuery();
+			
+			vo. setImgData(rs.getBlob("image"));
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			dbclose();
+		}
+		return vo;
 	}
 	
 

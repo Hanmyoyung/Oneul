@@ -4,6 +4,7 @@
 <%@page import="dao.SkWeather"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.io.OutputStream"  %>>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,12 +23,12 @@
 </head>
 <body>
 <%
-	SkWeather sk  = new SkWeather();
-	sk.getWeatherData();
-	sk.jsonParsing();
+	//SkWeather sk  = new SkWeather();
+	//sk.getWeatherData();
+	//sk.jsonParsing();
 	
 
-	out.println("현재 날씨는요? "+sk.getCurruntWeather());
+	//out.println("현재 날씨는요? "+sk.getCurruntWeather());
 
 %>
 <br>
@@ -73,6 +74,19 @@
 					</tr>
 					<tr>
 						<td colspan="4"><%= vo.getGuestbookcontent() %></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						<%
+
+							out.clear();
+							out=pageContext.pushBody();
+							response.setContentType("image/jpg");
+							OutputStream o = response.getOutputStream();
+							o.write(vo.getImgData());
+							o.flush();
+							o.close();
+						%></td>
 					</tr>
 			</table>
 <%
