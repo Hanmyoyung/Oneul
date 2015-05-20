@@ -37,7 +37,7 @@
    sk.jsonParsing();
    
 
-   out.println("현재 날씨는요? "+sk.getCurruntWeather());
+  out.println("현재 날씨는요? "+sk.getCurruntWeather());
    
 
 %>
@@ -45,15 +45,17 @@
 
 <b>방명록</b><hr>   
 
-	<!-- 글 목록 부분 시작 -->
-	<form method="post"  name="listform">
-		<input type="hidden" name ="pro">
+
+   <!-- 글 목록 부분 시작 -->
+   <form method="post" name="listform">
+      <input type="hidden" name ="pro">
+
 <%
-	dao.insert(vo);
-	ArrayList<PostTableVO> list = dao.select();
-	if(list.size() > 0 && list != null){
-		for(int i=0; i<list.size(); i++){
-			vo = list.get(i);
+   dao.insert(vo);
+   ArrayList<PostTableVO> list = dao.select();
+   if(list.size() > 0 && list != null){
+      for(int i=0; i<list.size(); i++){
+         vo = list.get(i);
 %>
 			<table border="1" width="500">
 					<tr>
@@ -70,12 +72,12 @@
 						</td>
 					</tr>
 
-			</table>
+         </table>
 <%
-		}
-	}
+      }
+   }
 %>
- 	</form>
- 	<!-- 글 목록 부분 끝 -->
+    </form>
+    <!-- 글 목록 부분 끝 -->
 </body>
 </html>
