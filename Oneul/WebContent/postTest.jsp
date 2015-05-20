@@ -46,7 +46,7 @@
 <b>방명록</b><hr>   
 
 	<!-- 글 목록 부분 시작 -->
-	<form method="post" action = "GetImage.do" name="listform">
+	<form method="post"  name="listform">
 		<input type="hidden" name ="pro">
 <%
 	dao.insert(vo);
