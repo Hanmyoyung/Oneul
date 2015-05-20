@@ -4,7 +4,6 @@
 <%@page import="dao.SkWeather"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.sql.Blob"%>
-
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -51,7 +50,7 @@
       <input type="hidden" name ="pro">
 
 <%
-   dao.insert(vo);
+   //dao.insert(vo);
    ArrayList<PostTableVO> list = dao.select();
    if(list.size() > 0 && list != null){
       for(int i=0; i<list.size(); i++){

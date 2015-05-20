@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import vo.PostTableVO;
@@ -85,18 +86,22 @@ public class PostTableDAO {
 	
 	public PostTableVO selectImage(int listnum){
 		
-		StringBuffer sql = new StringBuffer();
 		PostTableVO vo = new PostTableVO();
+		System.out.println(listnum);
+		
+		StringBuffer sql = new StringBuffer();
 		
 		try{
-			sql.append("SELECT image WHERE post_no=listnum");
-			sql.append("FROM post ORDER BY post_no DESC");
-		
-			
+			sql.append("SELECT image ");
+			sql.append("FROM post ");
+			sql.append("WHERE post_no = "+listnum);
+						
 			pstmt = conn.prepareStatement(sql.toString());			
 			rs = pstmt.executeQuery();
 			
-			vo. setImgData(rs.getBlob("image"));
+			while(rs.next()){
+				vo. setImgData(rs.getBlob("image"));
+			}
 			
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -112,7 +117,6 @@ public class PostTableDAO {
 		int result = 0;
 		try{
 			sql.append("INSERT INTO post(post_no, user_no, image, weather_no, content) ");
-			//sql.append("VALUES(GUESTBOOK_NO_SEQ.NEXTVAL,?,?,?) ");
 			sql.append("VALUES(?,?,?,?,?) ");
 			File image=new File("C:\\1.jpg");
 			FileInputStream fis;
@@ -124,17 +128,10 @@ public class PostTableDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, vo.getPostno());
 			pstmt.setInt(2, vo.getUserno());
-			//pstmt.setTimestamp(3, vo.getWritetime());
-			//pstmt.setTimestamp(4, vo.getModifytime());
-			//pstmt.setBinaryStream(3, vo.getPicture());
-			//pstmt.setBinaryStream(3, (InputStream)fis, (int)(image.length()));
+
 			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
-			//pstmt.setInt(6, vo.getLike());
 			pstmt.setInt(4, vo.getWeather());
-			pstmt.setString(5, vo.getContent());
-			//pstmt.setString(9, vo.getArea());
-			//pstmt.setInt(10, vo.getCoordino());
-		
+			pstmt.setString(5, vo.getContent());		
 			result = pstmt.executeUpdate();
 			
 		}catch(SQLException e){
@@ -155,12 +152,9 @@ public class PostTableDAO {
 		int result = 0;
 		
 		try{
-			sql.append("DELETE FROM post WHERE id = ?");
-			
-			pstmt = conn.prepareStatement(sql.toString());
-			
-			pstmt.setInt(1, vo.getPostno());
-			
+			sql.append("DELETE FROM post WHERE id = ?");		
+			pstmt = conn.prepareStatement(sql.toString());		
+			pstmt.setInt(1, vo.getPostno());			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -173,10 +167,12 @@ public class PostTableDAO {
 	
 	public void dbclose(){
 		try {
-			if(rs != null){	rs.close(); }
-			if(pstmt != null){ pstmt.close(); }
+			if(rs != null){	rs.close(); 
+			}
+			if(pstmt != null){ pstmt.close(); 
+			}
 			//if(conn != null){ conn.close(); }
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -83,7 +83,7 @@
 							out=pageContext.pushBody();
 							response.setContentType("image/jpg");
 							OutputStream o = response.getOutputStream();
-							o.write(vo.getImgData());
+							//o.write(vo.getImgData());
 							o.flush();
 							o.close();
 						%></td>
