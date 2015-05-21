@@ -1,7 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="vo.PostTableVO"%>
 <%@page import="dao.PostTableDAO"%>
-<%@page import="dao.SkWeather"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.sql.Blob"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -27,19 +26,7 @@
 <title>방명록</title>
 </head>
 <body>
-<%
 
-
-   
-   SkWeather sk  = new SkWeather();
-   sk.getWeatherData();
-   sk.jsonParsing();
-   
-
-  out.println("현재 날씨는요? "+sk.getCurruntWeather());
-   
-
-%>
 <br>
 
 <b>방명록</b><hr>   
