@@ -19,7 +19,6 @@
 	
 	response.setContentType("image/jpeg");
 	OutputStream o = response.getOutputStream();
-	System.out.println(vo.getImgData());
 	o.write(vo.getImgData());
 	o.flush();
 	o.close();
