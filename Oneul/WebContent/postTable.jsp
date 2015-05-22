@@ -16,10 +16,12 @@
    // 이렇게 됩니다.
 %>
 <script language="javascript">
+
    function goDel(id){
-      window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
-     // alert
-   }
+	      window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+	      
+	     // alert
+	   }
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,20 +45,42 @@
       for(int i=0; i<list.size(); i++){
          vo = list.get(i);
 %>
-			<table border="1" width="500">
+			<table border="1" width=100%>
 					<tr>
-						<th width="100">이름</th>
-						<td width="300"><%=vo.getUserno() %></td>
-						<td width="100"><input type="button" onclick="goDel(<%=vo.getPostno()%>)" value="삭제"></td>
+						<td width=50%>유저사진</td>
+						<td width=50%>닉네임</td>
 					</tr>
+					
 					<tr>
-						<td colspan="4"><%= vo.getContent() %></td>
+						<td>옷</td>
+						<td>날씨</td>
+						
 					</tr>
+					
 					<tr>
-						<td colspan="4">
+						<td colspan="2">
 							  <img id="photoImage" src="imgProcessing.jsp?parameter=<%= i%>" width="100"  />
 						</td>
 					</tr>
+					
+					<tr>
+						<td colspan="2">
+							  글입니다.
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">
+						<div style="float:left;">
+						<input  type="button" onclick="goDel(<%=vo.getPostno()%>)"   value="신고">
+						</div>
+						<div style="float:right;">
+						<input type="button" onclick="goDel(<%=vo.getPostno()%>)"   value="공감">
+						<input type="button" onclick="goDel(<%=vo.getPostno()%>)"    value="댓글">
+						</div>
+					</tr>
+					
+					
 
          </table>
 <%
