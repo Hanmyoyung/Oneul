@@ -1,4 +1,4 @@
-package dao;
+package util;
 
 
 import java.io.BufferedReader;
@@ -33,18 +33,30 @@ public class SkWeather {
 	
 	public SkWeather(){
 		
-		weatherResult = new String();
-		city = new String();
-		county = new String();
-		village = new String();
-		currentTemp = new String();
-		maxTemp = new String();
-		minTemp = new String();
-		timeRelease = new String();
+		//weatherResult = new String();
+		//city = new String();
+		//county = new String();
+		//village = new String();
+		//currentTemp = new String();
+		//maxTemp = new String();
+		//minTemp = new String();
+		//timeRelease = new String();
 	}
 	
-	public String getCurruntWeather(){
+	public String getCurruntTemp(){
 		return currentTemp;
+	}
+	
+	public String getCity(){
+		return city;
+	}
+	
+	public String getCounty(){
+		return county;
+	}
+	
+	public String getVillage(){
+		return village;
 	}
 	
 	public void jsonParsing(){
@@ -63,14 +75,6 @@ public class SkWeather {
 			maxTemp = tempNode.get("tmax").getTextValue();
 			minTemp = tempNode.get("tmin").getTextValue();
 			timeRelease = rootNode.get("weather").get("hourly").get(0).get("timeRelease").getTextValue();
-
-			System.out.println("도시는요? "+city);
-			System.out.println("구는요 ? "+county);
-			System.out.println("동은요 ? "+village);
-			System.out.println("현재 날씨는요? "+currentTemp);
-			System.out.println("최고 기온은요? "+maxTemp);
-			System.out.println("최저기온은요? "+minTemp);
-			System.out.println("릴리즈된시간은요? "+timeRelease);
 			
 			}catch(JsonParseException e){
 			}catch(JsonMappingException e){
