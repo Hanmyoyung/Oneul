@@ -13,12 +13,15 @@
 	SkWeather sk  = new SkWeather();
    	sk.getWeatherData();
    	sk.jsonParsing();
+   	sk.imageParsing();
 %>
 	<br>
    	<%=sk.getCity()%> <br>
 	<%=sk.getCounty()%><br>
 	<%=sk.getVillage()%><br>
-	<%=sk.getCurruntTemp()%>
+	<%=sk.getCurruntTemp()%><br>
+	<%=sk.getSkyCode() %><br>
+	<%=sk.getSkyString() %>
 
 </body>
 </html>

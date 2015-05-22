@@ -30,18 +30,10 @@ public class SkWeather {
 	String maxTemp;
 	String minTemp;
 	String timeRelease;
+	String skyCode;
+	String skyString;
 	
-	public SkWeather(){
-		
-		//weatherResult = new String();
-		//city = new String();
-		//county = new String();
-		//village = new String();
-		//currentTemp = new String();
-		//maxTemp = new String();
-		//minTemp = new String();
-		//timeRelease = new String();
-	}
+	public SkWeather(){}
 	
 	public String getCurruntTemp(){
 		return currentTemp;
@@ -57,6 +49,14 @@ public class SkWeather {
 	
 	public String getVillage(){
 		return village;
+	}
+	
+	public String getSkyCode(){
+		return skyCode;
+	}
+	
+	public String getSkyString(){
+		return skyString;
 	}
 	
 	public void jsonParsing(){
@@ -81,6 +81,26 @@ public class SkWeather {
 			}catch(IOException e){
 			}
 					
+	}
+	
+	public void imageParsing(){
+		
+		try{
+		ObjectMapper mapper = new ObjectMapper();				
+		JsonNode rootNode = mapper.readTree(new StringReader(weatherResult));
+		JsonNode tempNode1 = rootNode.get("weather").get("hourly").get(0).get("sky").get("code");	
+		JsonNode tempNode2 = rootNode.get("weather").get("hourly").get(0).get("sky").get("name");
+
+		skyCode=tempNode1.getTextValue();
+		skyString=tempNode2.getTextValue();
+		
+		
+		}catch(JsonParseException a){
+		}catch(JsonMappingException a){
+		}catch(IOException a){
+		}
+		
+		
 	}
 	
 	public void getWeatherData(){
