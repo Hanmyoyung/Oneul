@@ -54,9 +54,9 @@
 					<tr>
 						<td>옷</td>
 						<td>날씨</td>
-						
+		
 					</tr>
-					
+	
 					<tr>
 						<td colspan="2">
 							  <img id="photoImage" src="imgProcessing.jsp?parameter=<%= i%>" width="100"  />
