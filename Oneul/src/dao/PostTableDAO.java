@@ -87,7 +87,6 @@ public class PostTableDAO {
 	public PostTableVO selectImage(int listnum){
 		
 		PostTableVO vo = new PostTableVO();
-		System.out.println(listnum);
 		
 		StringBuffer sql = new StringBuffer();
 		
