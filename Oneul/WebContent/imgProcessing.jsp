@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <% 
-	PostTableDAO dao = PostTableDAO.getInstance();
+	PostTableDAO dao = new PostTableDAO();
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	int listnum = Integer.parseInt(request.getParameter("parameter"))+1;

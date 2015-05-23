@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	날씨 그래프 보여줌
+	날씨정보를 모은 것것입니다.
+	
 </body>
 </html>
