@@ -1,6 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="vo.PostTableVO"%>
 <%@page import="dao.PostTableDAO"%>
+<%@page import="vo.UserTableVO"%>
+<%@page import="dao.UserTableDAO"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.sql.Blob"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
@@ -9,8 +11,11 @@
 <html>
 <head>
 <%
-   PostTableDAO dao = PostTableDAO.getInstance();
-   PostTableVO vo = new PostTableVO();
+   	PostTableVO voP = new PostTableVO();
+	PostTableDAO daoP = new PostTableDAO();
+	
+	UserTableVO voU = new UserTableVO();
+	UserTableDAO daoU = new UserTableDAO();
    //여기서 이미지 처리 해도 무방
    //화면상에서 걸리는 것들이 자바 스크립트!를 쓰자  이렇게 위에서 <!% 
    // 이렇게 됩니다.
@@ -39,21 +44,25 @@
       <input type="hidden" name ="pro">
 
 <%
-   //dao.insert(vo);
-   ArrayList<PostTableVO> list = dao.select();
-   if(list.size() > 0 && list != null){
-      for(int i=0; i<list.size(); i++){
-         vo = list.get(i);
+   	daoP.insert(voP);
+	daoU.insert(voU);
+   	ArrayList<PostTableVO> listP = daoP.select();
+   	ArrayList<UserTableVO> listU = daoU.select();
+   
+   if(listP.size() > 0 && listP != null){
+      for(int i=0; i<listP.size(); i++){
+         voP = listP.get(i);
+         voU = listU.get(i);
 %>
 			<table border="1" width=100%>
 					<tr>
-						<td width=50%>유저사진</td>
-						<td width=50%>닉네임</td>
+						<td width=50%>유저사진 </td>
+						<td width=50%>닉네임 : <%=voU.getNickname()%></td>
 					</tr>
 					
 					<tr>
-						<td>옷</td>
-						<td>날씨</td>
+						<td>옷 : <%=voP.getCoordino() %></td>
+						<td>날씨 : <%=voP.getWeather_type() %></td>
 		
 					</tr>
 	
@@ -65,18 +74,18 @@
 					
 					<tr>
 						<td colspan="2">
-							  글입니다.
+							  글입니다. <%=voP.getContent() %>
 						</td>
 					</tr>
 					
 					<tr>
 						<td colspan="2">
 						<div style="float:left;">
-						<input  type="button" onclick="goDel(<%=vo.getPostno()%>)"   value="신고">
+						<input  type="button" onclick="goDel(<%=voP.getPostno()%>)"   value="신고">
 						</div>
 						<div style="float:right;">
-						<input type="button" onclick="goDel(<%=vo.getPostno()%>)"   value="공감">
-						<input type="button" onclick="goDel(<%=vo.getPostno()%>)"    value="댓글">
+						<input type="button" onclick="goDel(<%=voP.getPostno()%>)"   value="공감">
+						<input type="button" onclick="goDel(<%=voP.getPostno()%>)"    value="댓글">
 						</div>
 					</tr>
 					

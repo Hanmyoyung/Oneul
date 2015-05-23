@@ -3,62 +3,43 @@ package dao;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import util.ConnectionUtil;
 import vo.PostTableVO;
+import vo.TodayWeatherTableVO;
 
 	
 
 public class PostTableDAO {
 	
-	private static PostTableDAO dao = null;
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	String url = "jdbc:mysql://localhost/Oneul";
-	
+
+	PreparedStatement pstmt;
+	ResultSet rs;
 
 	
-	private PostTableDAO() throws SQLException{
-		//conn = ConnectionUtil.getConnection();
-		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url,"root","root");
-		}catch(Exception ex){}
+	public PostTableDAO() {
+		pstmt = null;
+		rs = null;
 		
 	}
 	
 
-	public static PostTableDAO getInstance(){
-		if(dao == null){
-			try {
-				dao = new PostTableDAO();
-			} catch (SQLException e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return dao;
-	}
 	
-
 	public ArrayList<PostTableVO> select(){
 		
 		ArrayList<PostTableVO> list = new ArrayList<PostTableVO>();		
 		StringBuffer sql = new StringBuffer();
 		
 		try{
-			sql.append("SELECT post_no,user_no, like_freq, weather_no, coordi_no, content, area, writetime, modifytime ");
+			sql.append("SELECT post_no,user_no, like_freq, weather_type, coordi_no, content, area, writetime, modifytime ");
 			sql.append("FROM post ORDER BY post_no DESC");
 		
 			
-			pstmt = conn.prepareStatement(sql.toString());			
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -66,7 +47,7 @@ public class PostTableDAO {
 					vo.setPostno(rs.getInt("post_no"));
 					vo.setUserno(rs.getInt("user_no"));
 					vo.setLike(rs.getInt("like_freq"));
-					vo.setWeather(rs.getInt("weather_no"));
+					vo.setWeather_type(rs.getString("weather_type"));
 					vo.setCoordino(rs.getInt("coordi_no"));
 					vo.setContent(rs.getString("content"));
 					vo.setArea(rs.getString("area"));
@@ -84,6 +65,7 @@ public class PostTableDAO {
 		return list;
 	}
 	
+	
 	public PostTableVO selectImage(int listnum){
 		
 		PostTableVO vo = new PostTableVO();
@@ -95,7 +77,7 @@ public class PostTableDAO {
 			sql.append("FROM post ");
 			sql.append("WHERE post_no = "+listnum);
 						
-			pstmt = conn.prepareStatement(sql.toString());			
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());					
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -113,24 +95,41 @@ public class PostTableDAO {
 
 	public int insert(PostTableVO vo){
 		StringBuffer sql = new StringBuffer();
+		TodayWeatherTableDAO daoT = new TodayWeatherTableDAO();
+		String weather_string="봄이야 여름이야";
+		
 		int result = 0;
 		try{
-			sql.append("INSERT INTO post(post_no, user_no, image, weather_no, content) ");
-			sql.append("VALUES(?,?,?,?,?) ");
-			File image=new File("C:\\1.jpg");
+
+			sql.append("INSERT INTO post(post_no, user_no, image, weather_type, content) ");
+			sql.append("VALUES(?, ?, ?, ?, ?) ");
+			
+			File image=new File("C:\\image\\1.jpg");
 			FileInputStream fis;
 			fis=new FileInputStream(image);
 			
 			//임시로 이미지 보내기
 			vo.setImage(image);
 			
-			pstmt = conn.prepareStatement(sql.toString());
+			/*
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());			
 			pstmt.setInt(1, vo.getPostno());
 			pstmt.setInt(2, vo.getUserno());
 
 			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
 			pstmt.setInt(4, vo.getWeather());
 			pstmt.setString(5, vo.getContent());		
+			result = pstmt.executeUpdate();
+			*/
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());			
+			
+			pstmt.setInt(1, vo.getPostno());
+			pstmt.setInt(2, 1);
+			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
+			pstmt.setString(4, weather_string);
+			pstmt.setString(5, "헿헤헤에에엥헤헤헤헤헤헤헿ㅎㅎ헤헤헤헤헤");		
+			daoT.getWeatherValue(weather_string);
+			daoT.update();
 			result = pstmt.executeUpdate();
 			
 		}catch(SQLException e){
@@ -143,7 +142,6 @@ public class PostTableDAO {
 		return result;
 	}
 	
-	
 
 	
 	public int delete(PostTableVO vo) throws SQLException{
@@ -152,7 +150,7 @@ public class PostTableDAO {
 		
 		try{
 			sql.append("DELETE FROM post WHERE id = ?");		
-			pstmt = conn.prepareStatement(sql.toString());		
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());					
 			pstmt.setInt(1, vo.getPostno());			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e){
