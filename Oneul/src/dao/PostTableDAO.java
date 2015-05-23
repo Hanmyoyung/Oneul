@@ -117,7 +117,7 @@ public class PostTableDAO {
 		try{
 			sql.append("INSERT INTO post(post_no, user_no, image, weather_no, content) ");
 			sql.append("VALUES(?,?,?,?,?) ");
-			File image=new File("C:\\1.jpg");
+			File image=new File("C:\\image\\1.jpg");
 			FileInputStream fis;
 			fis=new FileInputStream(image);
 			
