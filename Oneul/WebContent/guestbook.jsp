@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="vo.GuestBookVO"%>
 <%@page import="dao.GuestBookDAO"%>
-<%@page import="dao.SkWeather"%>
+<%@page import="util.SkWeather"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.io.OutputStream"  %>>

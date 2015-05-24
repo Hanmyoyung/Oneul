@@ -61,7 +61,7 @@
 					</tr>
 					
 					<tr>
-						<td>옷 : <%=voP.getCoordino() %></td>
+						<td>옷 : <%=voP.getCoordi_item() %></td>
 						<td>날씨 : <%=voP.getWeather_type() %></td>
 		
 					</tr>
