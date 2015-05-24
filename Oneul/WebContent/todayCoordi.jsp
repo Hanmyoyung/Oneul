@@ -1,5 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="vo.PostTableVO"%>
+<%@page import="dao.PostTableDAO"%>
+<%@page import="vo.CoordiTableVO"%>
+<%@page import="dao.CoordiTableDAO"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.sql.Blob"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,6 +14,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ÄÚµğÀÔ´Ï´Ù. ¸¹ÀÌ ¼±ÅÃµÈ ÄÚµğÇ×¸ñ ÀÌ¹ÌÁö¸¦ ¹é±×¶ó¿îµå·Î!! ÄÚµğ Ä«¿îÆ® Áõ°¡½ÃÅ°±â
+<%
+   CoordiTableDAO daoC = new CoordiTableDAO();
+	CoordiTableVO vo = new CoordiTableVO();
+   //ì—¬ê¸°ì„œ ì´ë¯¸ì§€ ì²˜ë¦¬ í•´ë„ ë¬´ë°©
+   //í™”ë©´ìƒì—ì„œ ê±¸ë¦¬ëŠ” ê²ƒë“¤ì´ ìë°” ìŠ¤í¬ë¦½íŠ¸!ë¥¼ ì“°ì  ì´ë ‡ê²Œ ìœ„ì—ì„œ <!% 
+   // ì´ë ‡ê²Œ ë©ë‹ˆë‹¤.
+   daoC.selectTodayCoordi();
+   
+%>
+
+	<img id="TodayCoordi" src="TodayCoordiImgProcessing.jsp" width="100"  />
+
+ <%=daoC.getMaxCoordi()%>
+	
+
+	
+
+
 </body>
 </html>
