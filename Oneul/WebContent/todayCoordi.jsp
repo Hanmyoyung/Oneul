@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	코디입니다.
+	코디입니다. 많이 선택된 코디항목 이미지를 백그라운드로!! 코디 카운트 증가시키기
 </body>
 </html>
