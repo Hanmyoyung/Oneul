@@ -6,7 +6,7 @@ public class WeatherIconInsert {
 
 	public static void main(String[] args) {
 		
-		   WeatherInfoDAO dao = WeatherInfoDAO.getInstance();
+		   WeatherInfoDAO dao = new WeatherInfoDAO();
 		   WeatherInfoVO vo = new WeatherInfoVO();
 		   
 		   dao.insert(vo);

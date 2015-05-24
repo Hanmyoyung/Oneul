@@ -11,7 +11,7 @@
 </head>
 <body>
 <%
-   WeatherInfoDAO dao = WeatherInfoDAO.getInstance();
+   WeatherInfoDAO dao = new WeatherInfoDAO();
    WeatherInfoVO vo = new WeatherInfoVO();
    //여기서 이미지 처리 해도 무방
    //화면상에서 걸리는 것들이 자바 스크립트!를 쓰자  이렇게 위에서 <!% 

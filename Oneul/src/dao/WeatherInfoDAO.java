@@ -9,39 +9,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import util.ConnectionUtil;
 import vo.WeatherInfoVO;
 
 
 public class WeatherInfoDAO {
 	
-	private static WeatherInfoDAO daoW = null;
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	String url = "jdbc:mysql://localhost/Oneul";
+	PreparedStatement pstmt;
+	ResultSet rs;
 	
-
-	
-	private WeatherInfoDAO() throws SQLException{
-		//conn = ConnectionUtil.getConnection();
-		try{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url,"root","root");
-		}catch(Exception ex){}
+	public WeatherInfoDAO() {
+		pstmt = null;
+		rs = null;
 		
-	}
-	
-
-	public static WeatherInfoDAO getInstance(){
-		if(daoW == null){
-			try {
-				daoW = new WeatherInfoDAO();
-			} catch (SQLException e) {
-			// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return daoW;
 	}
 	
 	public WeatherInfoVO selectWeatherIcon(String weather_code){
@@ -57,7 +37,7 @@ public class WeatherInfoDAO {
 			sql.append("FROM weather_info ");
 			sql.append("WHERE weather_code = ?");
 						
-			pstmt = conn.prepareStatement(sql.toString());
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());	
 			pstmt.setString(1, weather_code);
 			rs = pstmt.executeQuery();
 			
@@ -88,7 +68,7 @@ public class WeatherInfoDAO {
 			//임시로 이미지 보내기
 			vo.setWeather_icon(icon);
 			
-			pstmt = conn.prepareStatement(sql.toString());
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());	
 			//pstmt.setString(1, "SKY_O00");
 			pstmt.setBinaryStream(1,(InputStream)fis, (int)(icon.length()));
 		
@@ -115,6 +95,4 @@ public class WeatherInfoDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
