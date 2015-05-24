@@ -33,6 +33,8 @@ public class TodayWeatherTableDAO {
 		
 		if(weather_type.equals("º½ÀÌ¾ß ¿©¸§ÀÌ¾ß")){
 			rate1=Double.parseDouble(String.format("%.2f", (first/total)*100.0));
+			System.out.println(first);
+			System.out.println(total);
 			return(rate1);
 		}else if(weather_type.equals("º½º½º½º½ º½ÀÌ ¿Ô¾î¿ä")){
 			rate2=Double.parseDouble(String.format("%.2f", (second/total)*100.0));
@@ -120,7 +122,7 @@ public class TodayWeatherTableDAO {
 	}
 	
 	public void setWeatherValue(String weather_type){
-		
+		System.out.println("¿©±â±îÁö ¿À³ª¿ä");
 		this.weather_type=weather_type;
 		StringBuffer sql = new StringBuffer();
 		int temp;
@@ -139,6 +141,7 @@ public class TodayWeatherTableDAO {
 			while(rs.next()){
 				temp=rs.getInt("weather_freq");
 				weather_result=temp+1;
+				System.out.println(weather_result);
 			}
 			
 			System.out.println(weather_result);

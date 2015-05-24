@@ -114,7 +114,7 @@ public class PostTableDAO {
 			vo.setImage(image);
 			
 			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());			
-			
+
 			pstmt.setInt(1, vo.getPostno());
 			pstmt.setInt(2, 1);
 			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
@@ -122,8 +122,7 @@ public class PostTableDAO {
 			pstmt.setString(5, "헿헤헤에에엥헤헤헤헤헤헤헿ㅎㅎ헤헤헤헤헤");
 			pstmt.setString(6, coordi_item);
 			daoC.getCoordiItem(coordi_item);
-			daoC.update();
-			
+			daoC.update();		
 			daoT.setWeatherValue(weather_string);
 			daoT.update();
 			
