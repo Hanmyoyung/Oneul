@@ -128,8 +128,10 @@ public class PostTableDAO {
 			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
 			pstmt.setString(4, weather_string);
 			pstmt.setString(5, "헿헤헤에에엥헤헤헤헤헤헤헿ㅎㅎ헤헤헤헤헤");		
-			daoT.getWeatherValue(weather_string);
+			
 			daoT.update();
+			daoT.setWeatherValue(weather_string);
+			
 			result = pstmt.executeUpdate();
 			
 		}catch(SQLException e){

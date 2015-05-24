@@ -36,9 +36,9 @@
 
 <br>
 
-<b>SEOUL</b><hr>   
+<b>SEOUL<img id="writebutton" src="image/writebutton.png" width="25" onclick="location.href='writeTable.jsp'" align="right" /> </b>
 
-
+<hr>
    <!-- 글 목록 부분 시작 -->
    <form method="post" name="listform">
       <input type="hidden" name ="pro">
