@@ -18,6 +18,7 @@ public class TodayWeatherTableDAO {
 	int weather_result;
 	double rate1,rate2,rate3,rate4,rate5;
 	String weather_type;
+	String weather_parameter;
 	
 
 	
@@ -30,17 +31,18 @@ public class TodayWeatherTableDAO {
 	public double getTotalRate(String weather_type){
 		
 		getTotalValue();
+		this.weather_parameter = weather_type;
 		
 		if(weather_type.equals("º½ÀÌ¾ß ¿©¸§ÀÌ¾ß")){
 			rate1=Double.parseDouble(String.format("%.2f", (first/total)*100.0));
-			System.out.println(first);
-			System.out.println(total);
 			return(rate1);
 		}else if(weather_type.equals("º½º½º½º½ º½ÀÌ ¿Ô¾î¿ä")){
 			rate2=Double.parseDouble(String.format("%.2f", (second/total)*100.0));
 			return(rate2);
 		}else if(weather_type.equals("º½ÀÎ°¡ º½")){
 			rate3=Double.parseDouble(String.format("%.2f", (third/total)*100.0));
+			System.out.println("¼¼¹øÂ°´Â¿ä"+third);
+			System.out.println(total);
 			return(rate3);
 		}else if(weather_type.equals("¾ÆÁ÷µµ º½Àº ¾Æ³Ä")){
 			rate4=Double.parseDouble(String.format("%.2f", (fourth/total)*100.0));
@@ -77,7 +79,10 @@ public class TodayWeatherTableDAO {
 		}
 	}
 	
-	
+	public String getWeatherPara(String weather_parameter){
+		this.weather_parameter=weather_parameter;
+		return this.weather_parameter;
+	}
 	
 
 	public void getWeatherValue(String weather_type){
@@ -95,7 +100,7 @@ public class TodayWeatherTableDAO {
 			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());	
 			pstmt.setString(1, weather_type);
 			rs = pstmt.executeQuery();
-						
+				
 			while(rs.next()){
 				temp=rs.getInt("weather_freq");
 			}
@@ -104,9 +109,10 @@ public class TodayWeatherTableDAO {
 				first=temp;
 			}else if(weather_type.equals("º½º½º½º½ º½ÀÌ ¿Ô¾î¿ä")){
 				second=temp;
-			}else if(weather_type.equals("¾ÆÁùµµ º½Àº ¾Æ³Ä")){
+			}else if(weather_type.equals("º½ÀÎ°¡ º½")){
 				third=temp;
-			}else if(weather_type.equals("ÀÌ°Ô º½ÀÌ¾ß °Ü¿ïÀÌ¾ß")){
+				System.out.println("¿©±â¼­ °ªÀÌ µé¾î°¡¾ßµÇ´Âµ¥"+third);
+			}else if(weather_type.equals("¾ÆÁ÷µµ º½Àº ¾Æ³Ä")){
 				fourth=temp;
 			}else{
 				fifth=temp;
@@ -150,9 +156,9 @@ public class TodayWeatherTableDAO {
 				first=weather_result;
 			}else if(weather_type.equals("º½º½º½º½ º½ÀÌ ¿Ô¾î¿ä")){
 				second=weather_result;
-			}else if(weather_type.equals("¾ÆÁùµµ º½Àº ¾Æ³Ä")){
+			}else if(weather_type.equals("º½ÀÎ°¡ º½")){
 				third=weather_result;
-			}else if(weather_type.equals("ÀÌ°Ô º½ÀÌ¾ß °Ü¿ïÀÌ¾ß")){
+			}else if(weather_type.equals("¾ÆÁ÷µµ º½Àº ¾Æ³Ä")){
 				fourth=weather_result;
 			}else{
 				fifth=weather_result;

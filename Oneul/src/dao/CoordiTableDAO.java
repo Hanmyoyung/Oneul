@@ -58,7 +58,7 @@ public class CoordiTableDAO {
 	}
 
 	
-	public void getCoordiItem(String coordi_item){
+	public void setCoordiItem(String coordi_item){
 		
 		this.coordi_item=coordi_item;
 		StringBuffer sql = new StringBuffer();
