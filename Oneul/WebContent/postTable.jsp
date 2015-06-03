@@ -24,8 +24,27 @@
 <script language="javascript">
 
    function goDel(id){
-	      window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+	   	  alert("신고하시겠습니까?");
+	      //window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
 	      
+	     // alert
+	  }
+   
+   function goLike(id){
+	   	  alert("공감하시겠습니까?");
+	      //window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+	      
+	     // alert
+	}
+   function goRep(id){
+	   	  alert("댓글을 확인하시겠습니까?");
+	      //window.open("guestbook_Del.jsp?post_no=" + post_no, "", "width=400, height=200");
+	      
+	     // alert
+	  }
+   function goPage(url){
+	     parent.post.location.href=url;
+	     alert(url);
 	     // alert
 	   }
 </script>
@@ -37,7 +56,7 @@
 
 <br>
 
-<b>SEOUL<img id="writebutton" src="image/writebutton.png" width="25" onclick="location.href='writeTable.jsp'" align="right" /> </b>
+<p align="center"><b>SEOUL</b><img id="writebutton" src="image/writebutton.png" width="25" onclick="goPage('writeTable.jsp')"  align="right" /> </p>
 
 <hr>
    <!-- 글 목록 부분 시작 -->
@@ -85,8 +104,8 @@
 						<input  type="button" onclick="goDel(<%=voP.getPostno()%>)"   value="신고">
 						</div>
 						<div style="float:right;">
-						<input type="button" onclick="goDel(<%=voP.getPostno()%>)"   value="공감">
-						<input type="button" onclick="goDel(<%=voP.getPostno()%>)"    value="댓글">
+						<input type="button" onclick="goLike(<%=voP.getPostno()%>)"   value="공감">
+						<input type="button" onclick="goRep(<%=voP.getPostno()%>)"    value="댓글">
 						</div>
 					</tr>
 					

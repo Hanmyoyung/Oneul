@@ -35,7 +35,7 @@ public class WeatherInfoDAO {
 		try{
 			sql.append("SELECT weather_icon ");
 			sql.append("FROM weather_info ");
-			sql.append("WHERE weather_code = ?");
+			sql.append("WHERE weather_code = ? ");
 						
 			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());	
 			pstmt.setString(1, weather_code);

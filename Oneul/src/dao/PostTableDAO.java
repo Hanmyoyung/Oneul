@@ -19,6 +19,7 @@ public class PostTableDAO {
 
 	PreparedStatement pstmt;
 	ResultSet rs;
+	String weather_type;
 
 	
 	public PostTableDAO() {
@@ -40,6 +41,54 @@ public class PostTableDAO {
 		
 			
 			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+					PostTableVO vo = new PostTableVO();
+					vo.setPostno(rs.getInt("post_no"));
+					vo.setUserno(rs.getInt("user_no"));
+					vo.setLike(rs.getInt("like_freq"));
+					vo.setWeather_type(rs.getString("weather_type"));
+					vo.setCoordi_item(rs.getString("coordi_item"));
+					vo.setContent(rs.getString("content"));
+					vo.setArea(rs.getString("area"));
+					vo.setWritetime(rs.getTimestamp("writetime"));
+					vo.setModifytime(rs.getTimestamp("modifytime"));
+					
+					list.add(vo);
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			dbclose();
+		}
+		return list;
+	}
+	
+	public String getSelectedWeather(){
+		return this.weather_type;
+	}
+	
+	
+	public ArrayList<PostTableVO> selectByWeather(String weather_type){
+		
+		ArrayList<PostTableVO> list = new ArrayList<PostTableVO>();		
+		StringBuffer sql = new StringBuffer();
+		this.weather_type=weather_type;
+		System.out.println(this.weather_type);
+		try{
+			sql.append("SELECT post_no,user_no, like_freq, weather_type, coordi_item, content, area, writetime, modifytime ");
+			sql.append("FROM post ");
+			sql.append("WHERE weather_type = ? ");
+			sql.append("ORDER BY post_no DESC ");
+	
+			
+		
+			
+			pstmt = ConnectionUtil.getInstance().getConnection().prepareStatement(sql.toString());	
+			pstmt.setString(1, weather_type);
+			System.out.println(sql.toString());
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -106,6 +155,7 @@ public class PostTableDAO {
 			sql.append("INSERT INTO post(post_no, user_no, image, weather_type, content, coordi_item) ");
 			sql.append("VALUES(?, ?, ?, ?, ?, ?) ");
 			
+			String content = "헿헤헤에에엥헤헤헤헤헤헤헿ㅎㅎ헤헤헤헤헤";
 			File image=new File("C:\\image\\1.jpg");
 			FileInputStream fis;
 			fis=new FileInputStream(image);
@@ -119,9 +169,9 @@ public class PostTableDAO {
 			pstmt.setInt(2, 1);
 			pstmt.setBinaryStream(3,(InputStream)fis, (int)(image.length()));
 			pstmt.setString(4, weather_string);
-			pstmt.setString(5, "헿헤헤에에엥헤헤헤헤헤헤헿ㅎㅎ헤헤헤헤헤");
+			pstmt.setString(5, content);
 			pstmt.setString(6, coordi_item);
-			daoC.getCoordiItem(coordi_item);
+			daoC.setCoordiItem(coordi_item);
 			daoC.update();		
 			daoT.setWeatherValue(weather_string);
 			daoT.update();
