@@ -16,6 +16,7 @@
 	   }
 </script>
 
+<%--왼쪽 패널: 오늘의 날씨 통계정보 보여주는 jsp --%>
 <%
 	TodayWeatherTableDAO dao = new TodayWeatherTableDAO();
 	TodayWeatherTableVO vo = new TodayWeatherTableVO();	

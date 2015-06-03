@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%--오른쪽 패널: 날씨 정보 보여주는 jsp --%>
 <%
    WeatherInfoDAO dao = new WeatherInfoDAO();
    WeatherInfoVO vo = new WeatherInfoVO();

@@ -10,6 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%--가운데 패널: 메인페이지 게시글 보여주는 jsp --%>
 <%
    	PostTableVO voP = new PostTableVO();
 	PostTableDAO daoP = new PostTableDAO();

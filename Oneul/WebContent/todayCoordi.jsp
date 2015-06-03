@@ -14,16 +14,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%--맨 위 상단 패널: 가장 많이 선택된 코디 보여주는 jsp --%>
 <%
    CoordiTableDAO daoC = new CoordiTableDAO();
-	CoordiTableVO vo = new CoordiTableVO();
+	//CoordiTableVO vo = new CoordiTableVO();
    //여기서 이미지 처리 해도 무방
    //화면상에서 걸리는 것들이 자바 스크립트!를 쓰자  이렇게 위에서 <!% 
    // 이렇게 됩니다.
-   daoC.selectTodayCoordi();
+  daoC.selectTodayCoordi();
    
 %>
 
+	<%-- 
+	
+	 <img id="TodayCoordi" src="TodayCoordiImgProcessing.jsp?parameter=<%=daoC.getMaxCoordi()%>" width="100"  />--%>
+	
 	<img id="TodayCoordi" src="TodayCoordiImgProcessing.jsp" width="100"  />
 
  <%=daoC.getMaxCoordi()%>
